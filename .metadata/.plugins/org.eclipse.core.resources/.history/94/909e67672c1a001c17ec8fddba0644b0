@@ -22,7 +22,10 @@ signature:
 	monitored scelta: SceltaAS
 	monitored sceltaDispositivo: Dispositivo
 	monitored sceltaID: IdDomain
-
+	
+	controlled sceltaC: SceltaAS
+	controlled sceltaDispositivoC: Dispositivo
+	controlled sceltaIDC: IdDomain
 	//variabile in cui assegno il titolo del dispositivo
 	out info: String
 	//messaggio di errore
@@ -51,7 +54,7 @@ definitions:
 			 r_info[$disp,$id]
 		endpar
 		else
-			messaggio := "Errore, dispositivo gia' spento!"
+			messaggio := "Errore, dispositivo gia' acceso!"
 		endif
 		
 	 rule r_accendi($disp in Dispositivo, $id in IdDomain) = 
@@ -61,14 +64,22 @@ definitions:
 			 r_info[$disp,$id]
 		endpar
 		else
-			messaggio := "Errore, dispositivo gia' acceso!"
+			messaggio := "Errore, dispositivo gia' spento!"
 		endif
 	
 	 main rule r_Main = 
-		switch(scelta)
-			case ACCENDERE: r_accendi[sceltaDispositivo,sceltaID]
-			case SPEGNERE: r_spegni[sceltaDispositivo,sceltaID]
+	 par
+		switch(sceltaC)
+			case ACCENDERE: r_accendi[sceltaDispositivoC,sceltaIDC]
+			case SPEGNERE: r_spegni[sceltaDispositivoC,sceltaIDC]
 		endswitch
+		 sceltaC := scelta
+		 sceltaDispositivoC := sceltaDispositivo
+		 sceltaIDC := sceltaID
+	endpar
 			
 default init s0:
 	function acceso ($disp in Dispositivo, $id in IdDomain) = SPENTO
+	function sceltaC = scelta
+	function sceltaDispositivoC = sceltaDispositivo
+	function sceltaIDC = sceltaID

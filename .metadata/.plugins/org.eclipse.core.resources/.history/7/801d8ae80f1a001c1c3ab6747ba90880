@@ -1,0 +1,34 @@
+asm esempio
+
+import StandardLibrary
+
+/*Semaforo 1*/
+//Semaforo che cambia da verde a rosso
+signature:
+	//Domini
+	//definita su un dominio che contiene solo i valori verde e rosso
+	//NB: i domini iniziano sempre con la LETTERA MAISCUOLA
+	//NB2: possiamo mettere "," oppure "|"
+	enum domain State={VERDE,ROSSO}
+
+	//Funzioni
+	
+	//avremo una funzione controllata poiché non ascquisisce
+	//nessun valore dall'utente e in automatico cambia il valore
+	//del semaforo
+	controlled semaforo: State
+	
+//definizione delle regole
+definitions:
+	//NB: tutte le regole devono iniziare con "r_"
+	main rule r_Main =
+		if semaforo = VERDE then
+			semaforo := ROSSO
+		else
+			semaforo := VERDE
+		endif
+		
+//definizione dello stato iniziale
+default init s0:
+	function semaforo = ROSSO
+	

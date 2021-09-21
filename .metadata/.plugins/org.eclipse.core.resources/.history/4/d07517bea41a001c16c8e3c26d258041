@@ -1,0 +1,54 @@
+//// starting scenario
+scenario scenarioDispositivo
+load DispositivoSicurezza.asm
+check acceso(TELECAMERA,0) = SPENTO;
+set scelta := ACCENDERE;
+set sceltaDispositivo := TELECAMERA;
+set sceltaID := 0;
+step
+check acceso(TELECAMERA,0) = ACCESO;
+check info = Telecamera 0;
+check acceso(SENSORE,0) = SPENTO;
+set scelta := ACCENDERE;
+set sceltaDispositivo := SENSORE;
+set sceltaID := 0;
+step
+check acceso(TELECAMERA,0) = ACCESO;
+check info = Sensore 0;
+check acceso(SENSORE,0) = ACCESO;
+check acceso(ALLARME,1) = SPENTO;
+set scelta := ACCENDERE;
+set sceltaDispositivo := ALLARME;
+set sceltaID := 1;
+step
+check acceso(TELECAMERA,0) = ACCESO;
+check info = Allarme 1;
+check acceso(SENSORE,0) = ACCESO;
+check acceso(ALLARME,1) = ACCESO;
+set scelta := SPEGNERE;
+set sceltaDispositivo := SENSORE;
+set sceltaID := 0;
+step
+check acceso(TELECAMERA,0) = ACCESO;
+check info = Sensore 0;
+check acceso(SENSORE,0) = SPENTO;
+check acceso(ALLARME,1) = ACCESO;
+set scelta := ACCENDERE;
+set sceltaDispositivo := ALLARME;
+set sceltaID := 1;
+step
+check acceso(TELECAMERA,0) = ACCESO;
+check info = Sensore 0;
+check acceso(SENSORE,0) = SPENTO;
+check acceso(ALLARME,1) = ACCESO;
+check messaggio = Errore, dispositivo gia' acceso!;
+set scelta := SPEGNERE;
+set sceltaDispositivo := ALLARME;
+set sceltaID := 1;
+step
+check acceso(TELECAMERA,0) = ACCESO;
+check info = Allarme 1;
+check acceso(SENSORE,0) = SPENTO;
+check acceso(ALLARME,1) = SPENTO;
+check messaggio = Errore, dispositivo gia' acceso!;
+step

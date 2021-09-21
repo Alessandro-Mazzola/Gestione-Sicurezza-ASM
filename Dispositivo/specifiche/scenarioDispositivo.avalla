@@ -1,0 +1,69 @@
+//// starting scenario
+scenario scenarioDispositivo
+load DispositivoSicurezza.asm
+
+// provo ad accendere l'allarme 0. Deve accenderlo correttamente
+check acceso(ALLARME,0) = SPENTO;
+set scelta := ACCENDERE;
+set sceltaDispositivo := ALLARME;
+set sceltaID := 0;
+step
+check acceso(ALLARME,0) = ACCESO;
+check messaggio = "Dispositivo acceso correttamente!";
+check info = "Allarme 0";
+check acceso(SENSORE,1) = SPENTO;
+// provo ad accendere il sensore 1. Deve accenderlo correttamente
+set scelta := ACCENDERE;
+set sceltaDispositivo := SENSORE;
+set sceltaID := 1;
+step
+check acceso(ALLARME,0) = ACCESO;
+check messaggio = "Dispositivo acceso correttamente!";
+check info = "Sensore 1";
+check acceso(SENSORE,1) = ACCESO;
+check acceso(TELECAMERA,2) = SPENTO;
+
+// provo ad accendere la telecamera 2. Deve accenderlo correttamente
+set scelta := ACCENDERE;
+set sceltaDispositivo := TELECAMERA;
+set sceltaID := 2;
+step
+check acceso(ALLARME,0) = ACCESO;
+check messaggio = "Dispositivo acceso correttamente!";
+check info = "Telecamera 2";
+check acceso(SENSORE,1) = ACCESO;
+check acceso(TELECAMERA,2) = ACCESO;
+
+// provo ad accendere l'allarme 0. Deve stampare errore
+set scelta := ACCENDERE;
+set sceltaDispositivo := ALLARME;
+set sceltaID := 0;
+step
+check acceso(ALLARME,0) = ACCESO;
+check messaggio = "Errore, dispositivo gia' acceso!";
+check info = "Telecamera 2";
+check acceso(SENSORE,1) = ACCESO;
+check acceso(TELECAMERA,2) = ACCESO;
+
+// provo ad spegnere l'allarme 0. Deve spegnerlo correttamente
+set scelta := SPEGNERE;
+set sceltaDispositivo := ALLARME;
+set sceltaID := 0;
+step
+check acceso(ALLARME,0) = SPENTO;
+check messaggio = "Dispositivo spento correttamente!";
+check info = "Allarme 0";
+check acceso(SENSORE,1) = ACCESO;
+check acceso(TELECAMERA,2) = ACCESO;
+
+// provo ad spegnere il sensore 1. Deve spegnerlo correttamente
+set scelta := SPEGNERE;
+set sceltaDispositivo := SENSORE;
+set sceltaID := 1;
+step
+check acceso(ALLARME,0) = SPENTO;
+check messaggio = "Dispositivo spento correttamente!";
+check info = "Sensore 1";
+check acceso(SENSORE,1) = SPENTO;
+check acceso(TELECAMERA,2) = ACCESO;
+step

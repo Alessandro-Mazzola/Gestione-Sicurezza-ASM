@@ -14,10 +14,7 @@ signature:
 	//mi restituisce per ogni combinazione dispositivo-id se è acceso o spento
 	controlled acceso: Prod(Dispositivo, IdDomain) -> Stato
 	//mi restituira informazioni sul dispositvo
-	
-	//da cancellare
-	//static info: Prod(Dispositivo, IdDomain) -> String
-	
+
 	//diverse funzioni per le scelte che deve compiere l'utente
 	monitored scelta: SceltaAS
 	monitored sceltaDispositivo: Dispositivo
